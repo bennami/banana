@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User
 {
     /**
      * @ORM\Id()
@@ -18,68 +19,67 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $username;
+    private $Username;
 
     /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $role;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $email;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="user_id")
+     */
+    private $ticket_created;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ticket", mappedBy="agent_id")
+     */
+    private $ticket_handled;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="commented_by")
+     */
+    private $comments_made;
+
+    public function __construct()
+    {
+        $this->ticket_created = new ArrayCollection();
+        $this->ticket_handled = new ArrayCollection();
+        $this->comments_made = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUsername(): string
+    public function getUsername(): ?string
     {
-        return (string) $this->username;
+        return $this->Username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $Username): self
     {
-        $this->username = $username;
+        $this->Username = $Username;
 
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getRoles(): array
+    public function getPassword(): ?string
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    /**
-     * @see UserInterface
-     */
-    public function getPassword(): string
-    {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -89,20 +89,120 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
-    public function getSalt()
+    public function getRole(): ?string
     {
-        // not needed when using the "bcrypt" algorithm in security.yaml
+        return $this->role;
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
     }
 
     /**
-     * @see UserInterface
+     * @return Collection|Ticket[]
      */
-    public function eraseCredentials()
+    public function getTicketCreated(): Collection
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        return $this->ticket_created;
+    }
+
+    public function addTicketCreated(Ticket $ticketCreated): self
+    {
+        if (!$this->ticket_created->contains($ticketCreated)) {
+            $this->ticket_created[] = $ticketCreated;
+            $ticketCreated->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicketCreated(Ticket $ticketCreated): self
+    {
+        if ($this->ticket_created->contains($ticketCreated)) {
+            $this->ticket_created->removeElement($ticketCreated);
+            // set the owning side to null (unless already changed)
+            if ($ticketCreated->getUserId() === $this) {
+                $ticketCreated->setUserId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Ticket[]
+     */
+    public function getTicketHandled(): Collection
+    {
+        return $this->ticket_handled;
+    }
+
+    public function addTicketHandled(Ticket $ticketHandled): self
+    {
+        if (!$this->ticket_handled->contains($ticketHandled)) {
+            $this->ticket_handled[] = $ticketHandled;
+            $ticketHandled->setAgentId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicketHandled(Ticket $ticketHandled): self
+    {
+        if ($this->ticket_handled->contains($ticketHandled)) {
+            $this->ticket_handled->removeElement($ticketHandled);
+            // set the owning side to null (unless already changed)
+            if ($ticketHandled->getAgentId() === $this) {
+                $ticketHandled->setAgentId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentsMade(): Collection
+    {
+        return $this->comments_made;
+    }
+
+    public function addCommentsMade(Comment $commentsMade): self
+    {
+        if (!$this->comments_made->contains($commentsMade)) {
+            $this->comments_made[] = $commentsMade;
+            $commentsMade->setCommentedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentsMade(Comment $commentsMade): self
+    {
+        if ($this->comments_made->contains($commentsMade)) {
+            $this->comments_made->removeElement($commentsMade);
+            // set the owning side to null (unless already changed)
+            if ($commentsMade->getCommentedBy() === $this) {
+                $commentsMade->setCommentedBy(null);
+            }
+        }
+
+        return $this;
     }
 }

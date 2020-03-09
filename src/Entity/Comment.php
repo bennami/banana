@@ -17,96 +17,91 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="datetime")
      */
-    private $Timestamp;
+    private $timestamp;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket", inversedBy="comment_id")
      */
-    private $TicketID;
+    private $ticket_id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Comment;
+    private $type;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
-    private $Commented_By;
+    private $content;
 
     /**
-     * Comment constructor.
-     * @param $Timestamp
-     * @param $TicketID
-     * @param $Comment
-     * @param $Commented_By
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments_made")
      */
-    public function __construct($Timestamp, $TicketID, $Comment, $Commented_By)
-    {
-        $this->Timestamp = $Timestamp;
-        $this->TicketID = $TicketID;
-        $this->Comment = $Comment;
-        $this->Commented_By = $Commented_By;
-    }
+    private $commented_by;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setID(int $ID): self
-    {
-        $this->ID = $ID;
-
-        return $this;
-    }
-
     public function getTimestamp(): ?\DateTimeInterface
     {
-        return $this->Timestamp;
+        return $this->timestamp;
     }
 
-    public function setTimestamp(\DateTimeInterface $Timestamp): self
+    public function setTimestamp(\DateTimeInterface $timestamp): self
     {
-        $this->Timestamp = $Timestamp;
+        $this->timestamp = $timestamp;
 
         return $this;
     }
 
-    public function getTicketID(): ?int
+    public function getTicketId(): ?Ticket
     {
-        return $this->TicketID;
+        return $this->ticket_id;
     }
 
-    public function setTicketID(int $TicketID): self
+    public function setTicketId(?Ticket $ticket_id): self
     {
-        $this->TicketID = $TicketID;
+        $this->ticket_id = $ticket_id;
 
         return $this;
     }
 
-    public function getComment(): ?string
+    public function getType(): ?string
     {
-        return $this->Comment;
+        return $this->type;
     }
 
-    public function setComment(string $Comment): self
+    public function setType(string $type): self
     {
-        $this->Comment = $Comment;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getCommentedBy(): ?int
+    public function getContent(): ?string
     {
-        return $this->Commented_By;
+        return $this->content;
     }
 
-    public function setCommentedBy(int $Commented_By): self
+    public function setContent(string $content): self
     {
-        $this->Commented_By = $Commented_By;
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCommentedBy(): ?User
+    {
+        return $this->commented_by;
+    }
+
+    public function setCommentedBy(?User $commented_by): self
+    {
+        $this->commented_by = $commented_by;
 
         return $this;
     }
