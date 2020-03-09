@@ -33,11 +33,13 @@ class Ticket
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(target="App/Entity/User" , mappedBy="id")
      */
     private $created_by;
 
     /**
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(target="App/Entity/User" , mappedBy=" ")
      */
     private $handled_by;
 
