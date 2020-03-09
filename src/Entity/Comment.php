@@ -22,7 +22,7 @@ class Comment
     private $timestamp;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket", inversedBy="comment_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket")
      */
     private $ticket_id;
 
@@ -40,6 +40,11 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments_made")
      */
     private $commented_by;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ticket", inversedBy="comment_id")
+     */
+    private $ticket;
 
     public function getId(): ?int
     {
@@ -102,6 +107,18 @@ class Comment
     public function setCommentedBy(?User $commented_by): self
     {
         $this->commented_by = $commented_by;
+
+        return $this;
+    }
+
+    public function getTicket(): ?Ticket
+    {
+        return $this->ticket;
+    }
+
+    public function setTicket(?Ticket $ticket): self
+    {
+        $this->ticket = $ticket;
 
         return $this;
     }

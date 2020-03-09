@@ -39,7 +39,7 @@ class Ticket
     private $user_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ticket_handled")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $agent_id;
 
@@ -49,7 +49,7 @@ class Ticket
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket")
      */
     private $comment_id;
 
@@ -147,7 +147,7 @@ class Ticket
     {
         if (!$this->comment_id->contains($commentId)) {
             $this->comment_id[] = $commentId;
-            $commentId->setTicketId($this);
+            $commentId->setTicket($this);
         }
 
         return $this;
@@ -158,8 +158,8 @@ class Ticket
         if ($this->comment_id->contains($commentId)) {
             $this->comment_id->removeElement($commentId);
             // set the owning side to null (unless already changed)
-            if ($commentId->getTicketId() === $this) {
-                $commentId->setTicketId(null);
+            if ($commentId->getTicket() === $this) {
+                $commentId->setTicket(null);
             }
         }
 
