@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Log in!{% endblock %}
-
+    {% block stylesheets %}
+        <link rel="stylesheet" href="public/login.css">
+    {% endblock %}
 {% block body %}
-<form method="post">
+
+
+
+
+{#<form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -22,19 +28,41 @@
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
-    >
+    >#}
 
-       
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+
+
+
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+
+            <!-- Icon -->
+            <div class="fadeIn first">
+                <img src="https://img.icons8.com/carbon-copy/100/000000/user-male-circle.png" class=" max-width: 20%" id="icon" alt="User Icon" />
+            </div>
+
+            <!-- Login Form -->
+            <form action="?login=login" method="post">
+                <input type="text" id="login" class="fadeIn second" name="loginEmail" placeholder="email">
+                <input type="text" id="password" class="fadeIn third" name="loginPassword" placeholder="password">
+                <input type="submit" class="fadeIn fourth"  name="submitLogin" value="Log In">
+            </form>
+
+            <!-- Remind Passowrd -->
+            <form action="register" method="get">
+                <div id="formFooter">
+                    <a class="underlineHover" href="#">Forgot Password?</a>
+                    <br>
+                    <a class="underlineHover" name="register" href="?reg" >REGISTER</a>
+                </div>
+            </form>
         </div>
+    </div>
 
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
 </form>
 {% endblock %}
