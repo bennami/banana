@@ -9,8 +9,9 @@
 </style>
 
 <div class="example-wrapper">
-    <h2>Hello {{ product.subject }}! ✅</h2>
-
+    {% for ticket in product %}
+    <h1>{{ ticket }}</h1>
+    {% endfor %}
 
     This friendly message is coming from:
     <ul>
