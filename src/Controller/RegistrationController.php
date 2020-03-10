@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Ticket;
+use App\Entity\Comment;
+
 use App\Form\RegistrationFormType;
 use App\Security\Authenticator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
