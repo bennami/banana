@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,24 +24,24 @@ class Ticket
     private $subject;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $priority;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_created;
+    private $date;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="ticket_created")
      */
-    private $created_by;
+    private $user_id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
-    private $handled_by;
+    private $agent_id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -47,22 +49,13 @@ class Ticket
     private $status;
 
     /**
-     * Ticket constructor.
-     * @param $subject
-     * @param $priority
-     * @param $date_created
-     * @param $created_by
-     * @param $handled_by
-     * @param $status
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ticket")
      */
-    public function __construct($subject, $priority, $date_created, $created_by, $handled_by, $status)
+    private $comment_id;
+
+    public function __construct()
     {
-        $this->subject = $subject;
-        $this->priority = $priority;
-        $this->date_created = $date_created;
-        $this->created_by = $created_by;
-        $this->handled_by = $handled_by;
-        $this->status = $status;
+        $this->comment_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,50 +75,50 @@ class Ticket
         return $this;
     }
 
-    public function getPriority(): ?int
+    public function getPriority(): ?string
     {
         return $this->priority;
     }
 
-    public function setPriority(int $priority): self
+    public function setPriority(string $priority): self
     {
         $this->priority = $priority;
 
         return $this;
     }
 
-    public function getDateCreated(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->date_created;
+        return $this->date;
     }
 
-    public function setDateCreated(\DateTimeInterface $date_created): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->date_created = $date_created;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getCreatedBy(): ?int
+    public function getUserId(): ?User
     {
-        return $this->created_by;
+        return $this->user_id;
     }
 
-    public function setCreatedBy(int $created_by): self
+    public function setUserId(?User $user_id): self
     {
-        $this->created_by = $created_by;
+        $this->user_id = $user_id;
 
         return $this;
     }
 
-    public function getHandledBy(): ?int
+    public function getAgentId(): ?User
     {
-        return $this->handled_by;
+        return $this->agent_id;
     }
 
-    public function setHandledBy(int $handled_by): self
+    public function setAgentId(?User $agent_id): self
     {
-        $this->handled_by = $handled_by;
+        $this->agent_id = $agent_id;
 
         return $this;
     }
@@ -138,6 +131,37 @@ class Ticket
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentId(): Collection
+    {
+        return $this->comment_id;
+    }
+
+    public function addCommentId(Comment $commentId): self
+    {
+        if (!$this->comment_id->contains($commentId)) {
+            $this->comment_id[] = $commentId;
+            $commentId->setTicket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentId(Comment $commentId): self
+    {
+        if ($this->comment_id->contains($commentId)) {
+            $this->comment_id->removeElement($commentId);
+            // set the owning side to null (unless already changed)
+            if ($commentId->getTicket() === $this) {
+                $commentId->setTicket(null);
+            }
+        }
 
         return $this;
     }
