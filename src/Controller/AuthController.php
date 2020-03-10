@@ -25,6 +25,12 @@ class AuthController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
+        //iif user doesnt know password, navigate to password controller to reset password
+        if ($_POST['password_forget']){
+            $this->redirectToRoute('password');
+        }
+
+
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
