@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Ticket;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -26,15 +27,18 @@ class UserDashboardController extends AbstractController
     public function show($id)
     {
         $product = $this->getDoctrine()
-            ->getRepository(Ticket::class)
+            ->getRepository(User::class)
             ->find($id);
 
         if (!$product) {
             return $this->render('manager/index.html.twig', ['product' => 'This is not here']);
-
         }
+        $tickets = [];
+        foreach ($product->getTicketCreated() AS $ticket){
+            array_push($tickets, $ticket->getSubject());
+    }
 
 
-        return $this->render('manager/index.html.twig', ['product' => $product]);
+        return $this->render('manager/index.html.twig', ['product' => $tickets]);
     }
 }
