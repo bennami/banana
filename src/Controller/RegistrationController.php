@@ -39,7 +39,14 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setRoles(['ROLE_ADMIN']);
+
+
+
+            //getting roles to work babyyy
+            $role = $form->get('roles');
+            $user->setRoles([$role->getData()]);
+            $user->getRoles();
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -56,6 +63,7 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+
         ]);
     }
 }

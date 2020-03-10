@@ -31,7 +31,7 @@ class UserDashboardController extends AbstractController
             ->find($id);
 
         if (!$product) {
-            return $this->render('manager/index.html.twig', ['product' => 'This is not here']);
+            return $this->render('user_dashboard/index.html.twig', ['product' => 'This is not here']);
         }
         $tickets = [];
         foreach ($product->getTicketCreated() AS $ticket){
@@ -39,6 +39,6 @@ class UserDashboardController extends AbstractController
     }
 
 
-        return $this->render('manager/index.html.twig', ['product' => $tickets]);
+        return $this->render('user_dashboard/index.html.twig', ['product' => $tickets]);
     }
 }
