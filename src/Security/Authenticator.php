@@ -65,6 +65,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
             throw new InvalidCsrfTokenException();
         }
 
+
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
 
         if (!$user) {
@@ -96,7 +97,7 @@ class Authenticator extends AbstractFormLoginAuthenticator implements PasswordAu
             return new RedirectResponse($targetPath);
         }
 
-         return new RedirectResponse($this->urlGenerator->generate('app_login'));
+         return new RedirectResponse($this->urlGenerator->generate("homepage"));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
