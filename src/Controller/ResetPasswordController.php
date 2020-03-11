@@ -39,6 +39,7 @@ class ResetPasswordController extends AbstractController
             $userSelected = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $userEmail]);
             if ($userSelected) {
                 $user = $userSelected[0];
+
                 // encode the plain password
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
