@@ -8,13 +8,21 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ user.username }}! ✅</h1>
+    <h1>Hello {{ product }}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/banana/src/Controller/AgentDashboardController.php'|file_link(0) }}">src/Controller/AgentDashboardController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/banana/templates/agent_dashboard/index.html.twig'|file_link(0) }}">templates/agent_dashboard/index.html.twig</a></code></li>
-    </ul>
+<div class="table-responsive">
+    <table class="table-bordered">
+        <tbody>
+        <tr>
+            <th><h4>Tickets assigned to you:</h4></th>
+            <th><h4>Status:</h4></th>
+        </tr>
+
+        <tr>
+            <td>{{ product }}</td>
+            <td>Status:</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 {% endblock %}

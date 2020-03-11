@@ -16,45 +16,23 @@ class AgentDashboardController extends AbstractController
     {
         $user = $this->getUser();
 
-        return $this->render('agent_dashboard/index.html.twig', [
-            'controller_name' => 'AgentDashboardController',
-            'user' => $user
-        ]);
-    }
+        $currentUserId = $this->getUser()->getId();
 
-    public function getOpenTicket($id)
-    {
-        $product = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->findBy(['status' => 'Open']);
 
-        if (!$product) {
+        $tickets = $this->getDoctrine()
+            ->getRepository(Ticket::class)
+            ->findBy(['agent_id' => $currentUserId]);
+
+        if (!$tickets) {
             return $this->render('agent_dashboard/index.html.twig', ['product' => 'This is not here']);
         }
-        $tickets = [];
-        foreach ($product->getTicketCreated() AS $ticket){
-            array_push($tickets, $ticket->getSubject());
+        $ticketsArr = [];
+        foreach ($tickets AS $ticket){
+            array_push($ticketsArr, $ticket);
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', ['product' => $tickets]);
+        return $this->render('agent_dashboard/index.html.twig', ['product' => $ticketsArr[0]->getSubject()]);
+    }
     }
 
-    public function show($id)
-    {
-        $user = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->find($id);
-
-        if (!$user) {
-            return $this->render('agent/index.html.twig', ['product' => 'This is not here']);
-        }
-        $tickets = [];
-        foreach ($user->getTicketCreated() AS $ticket){
-            array_push($tickets, $ticket->getSubject());
-    }
-
-
-        return $this->render('agent_dashboard/index.html.twig', ['product' => $tickets]);
-    }
-}
