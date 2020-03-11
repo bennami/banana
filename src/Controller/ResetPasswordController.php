@@ -27,8 +27,13 @@ class ResetPasswordController extends AbstractController
         // similar to registration controller
         $user = new User();
 
+
         // Get entered email for check
-        $userEmail = $request->request->get('password_reset'){'email'};
+        $userEmail = $request->request->get('reset_password'){'email'};
+
+        //this is better than the above way of fetching email, dont know how to though
+        /* $reset = $form->getData();
+           $reset['email'];*/
 
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
