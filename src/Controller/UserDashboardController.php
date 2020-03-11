@@ -39,6 +39,6 @@ class UserDashboardController extends AbstractController
     }
 
 
-        return $this->render('user_dashboard/index.html.twig', ['product' => $tickets]);
+        return $this->render('user_dashboard/index.html.twig', ['product' => $product->getUsername()]);
     }
 }
