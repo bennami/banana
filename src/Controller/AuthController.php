@@ -16,9 +16,9 @@ class AuthController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('homepage');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -26,11 +26,13 @@ class AuthController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         //iif user doesnt know password, navigate to password controller to reset password
+
         if (isset($_POST['password_forget'])) {
             $this->redirectToRoute('password');
         } else {
             return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
         }
+
     }
 
     /**

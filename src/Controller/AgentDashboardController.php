@@ -12,8 +12,11 @@ class AgentDashboardController extends AbstractController
      */
     public function index()
     {
+        $user = $this->getUser();
+
         return $this->render('agent_dashboard/index.html.twig', [
             'controller_name' => 'AgentDashboardController',
+            'user' => $user
         ]);
     }
 }
