@@ -76,6 +76,7 @@ class UserDashboardController extends AbstractController
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
+
 //    public function show($id)
 //    {
 //        $user = $this->getDoctrine()
@@ -93,4 +94,23 @@ class UserDashboardController extends AbstractController
 //
 //        return $this->render('user_dashboard/index.html.twig', ['product' => $tickets]);
 //    }
+
+//    public function show($id)
+//    {
+//        $product = $this->getDoctrine()
+//            ->getRepository(User::class)
+//            ->find($id);
+//
+//        if (!$product) {
+//            return $this->render('user_dashboard/index.html.twig', ['product' => 'This is not here']);
+//        }
+//        $tickets = [];
+//        foreach ($product->getTicketCreated() AS $ticket){
+//            array_push($tickets, $ticket->getSubject());
+//    }
+//
+//
+//        return $this->render('user_dashboard/index.html.twig', ['product' => $tickets]);
+//    }
+
 }
