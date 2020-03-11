@@ -29,7 +29,7 @@ class RegistrationFormType extends AbstractType
                     'SECOND_LINE'=> 'ROLE_SECOND_LINE',
 
                 ],
-            'mapped'=> false,
+                'mapped'=> false,
 
             ])
 
