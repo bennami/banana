@@ -17,23 +17,23 @@ class UserDashboardController extends AbstractController
     {
         // you can fetch the EntityManager via $this->getDoctrine()
         // or you can add an argument to the action: createProduct(EntityManagerInterface $entityManager)
-        $entityManager = $this->getDoctrine()->getManager();
-
-        $ticket = new Ticket();
-        $ticket->setSubject('Keyboard');
-        $ticket->setStatus('in progression');
-        $ticket->setPriority('Ergonomic and stylish!');
-        $ticket->setDate(new \DateTime());
-        //$ticket->setDate('2020-03-10 16:06:14');
-
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($ticket);
-
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
+//        $entityManager = $this->getDoctrine()->getManager();
+//
+//        $ticket = new Ticket();
+//        $ticket->setSubject('Keyboard');
+//        $ticket->setStatus('in progression');
+//        $ticket->setPriority('Ergonomic and stylish!');
+//        $ticket->setDate(new \DateTime());
+//        //$ticket->setDate('2020-03-10 16:06:14');
+//
+//        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+//        $entityManager->persist($ticket);
+//
+//        // actually executes the queries (i.e. the INSERT query)
+//        $entityManager->flush();
 
         //return new Response('Saved new product with id '.$ticket->getStatus());
-        return $this->render('user_dashboard/index.html.twig', ['product' => $ticket]);
+        return $this->render('user_dashboard/index.html.twig' /*['product' => $ticket]*/);
     }
 //    public function readAllTicket():Response
 //    {
@@ -115,6 +115,6 @@ class UserDashboardController extends AbstractController
 
 
         //return $this->render('user_dashboard/index.html.twig', ['product' => $product->getUsername()]);
-    
+
 
 }

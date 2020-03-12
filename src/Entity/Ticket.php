@@ -53,9 +53,17 @@ class Ticket
      */
     private $comment_id;
 
+
     public function __construct()
     {
         $this->comment_id = new ArrayCollection();
+        //$id, $agent_id,$user_id,$subject,$date,$status
+//        $this->setUserId($id);
+//        $this->setAgentId($agent_id);
+//        $this->setUserId($user_id);
+//        $this->setSubject($subject);
+//        $this->setDate($date);
+//        $this->setStatus($status);
     }
 
     public function getId(): ?int
@@ -92,7 +100,7 @@ class Ticket
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate( $date): self
     {
         $this->date = $date;
 
@@ -165,4 +173,6 @@ class Ticket
 
         return $this;
     }
+
+
 }
