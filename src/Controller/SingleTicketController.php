@@ -25,6 +25,8 @@ class SingleTicketController extends AbstractController
             ->getRepository(Comment::class)
             ->findBy(['ticket_id'=> $singleTicket->getId()]);
 
+
+
         return $this->render('single_ticket/index.html.twig', [
             'controller_name' => 'SingleTicketController',
             'ticket' => $singleTicket,
