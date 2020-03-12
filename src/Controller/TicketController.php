@@ -35,8 +35,8 @@ class TicketController extends AbstractController
             $ticket->setStatus('open');
 
             $ticket->setDate(new \DateTime());
-//            $ticket->setUserId(1);
-//            $ticket->setAgentId(1);
+            $ticket->setUserId($this->getUser());
+
 
             $form->get('subject')->getData();
             //$ticket->setSubject($ticket);
