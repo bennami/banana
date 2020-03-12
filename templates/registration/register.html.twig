@@ -11,8 +11,10 @@
         {{ form_row(registrationForm.plainPassword) }}#}
 
 
+    {% if is_granted('ROLE_ADMIN') %}
 
-  {#  {{ form_row(registrationForm.roles) }}#}
+    {{ form_row(registrationForm.roles) }}
+    {% endif %}
 
     {{ form_row(RegistrationForm.agreeTerms) }}
         <button class="btn" name="submit">Register</button>

@@ -27,14 +27,7 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, Authenticator $authenticator): Response
     {
-        // Checking for user role
-        $hasAccess = $this->isGranted('ROLE_ADMIN');
-        if (!$hasAccess){
-            return $this->forward('App\Controller\ErrorController::index', [
-                'controller_name' => 'ErrorController',
-                'username' => $this->getUser()->getUsername()
-            ]);
-        }
+
 
 
         $user = new User();

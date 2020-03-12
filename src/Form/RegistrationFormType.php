@@ -20,19 +20,17 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username')
             ->add('email')
-
-        ->add('roles', ChoiceType::class, [
-                'choices'=>[
-                    'ROLE_ADMIN'=> 'ROLE_ADMIN',
-                    'CUSTOMER'=> 'ROLE_CUSTOMER',
-                    'FIRST_LINE'=> 'ROLE_FIRST_LINE',
-                    'SECOND_LINE'=> 'ROLE_SECOND_LINE',
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'ROLE_ADMIN' => 'ROLE_ADMIN',
+                    'CUSTOMER' => 'ROLE_CUSTOMER',
+                    'FIRST_LINE' => 'ROLE_FIRST_LINE',
+                    'SECOND_LINE' => 'ROLE_SECOND_LINE',
 
                 ],
-                'mapped'=> false,
+                'mapped' => false,
 
             ])
-
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -41,8 +39,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-
-
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -58,11 +54,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
-
-
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
