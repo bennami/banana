@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PasswordController!{% endblock %}
+{% block title %}Hello Manager!{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
     </style>
 
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="table-responsive">
+        <h1>Hello mister manager sir. {{ username }}! ✅</h1>
+        <table class="table-bordered">
+            <thead>
+            <tr>
+                <th>Ticket Subject</th>
+                <th>Ticket Status</th>
+                <th>Agent Handling</th>
 
-        This friendly message is coming from:
-        <ul>
-            <li>Your controller at <code><a href="{{ '/var/www/banana/src/Controller/PasswordController.php'|file_link(0) }}">src/Controller/PasswordController.php</a></code></li>
-            <li>Your template at <code><a href="{{ '/var/www/banana/templates/password/index.html.twig'|file_link(0) }}">templates/password/index.html.twig</a></code></li>
-        </ul>
+            </tr>
+            </thead>
+            <tbody>
+            {% for i in 0..numberOfTimes-1 %}
+                <tr>
+                    <td> {{ allTickets[i].subject }}</td>
+                    <td> {{ allTickets[i].status }}</td>
+                    <td> {{ agentName[i] }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 {% endblock %}
