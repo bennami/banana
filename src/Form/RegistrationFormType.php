@@ -19,18 +19,22 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('email')
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                    'CUSTOMER' => 'ROLE_CUSTOMER',
-                    'FIRST_LINE' => 'ROLE_FIRST_LINE',
-                    'SECOND_LINE' => 'ROLE_SECOND_LINE',
+            ->add('email');
+        if (in_array('ROLE_ADMIN', $options['role'])) {
+            $builder
+                ->add('roles', ChoiceType::class, [
+                    'choices' => [
+                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'CUSTOMER' => 'ROLE_CUSTOMER',
+                        'FIRST_LINE' => 'ROLE_FIRST_LINE',
+                        'SECOND_LINE' => 'ROLE_SECOND_LINE',
 
-                ],
-                'mapped' => false,
+                    ],
+                    'mapped' => false,
 
-            ])
+                ]);
+        }
+        $builder
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -61,6 +65,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'role' => 'ROLE_USER'
         ]);
     }
 }
