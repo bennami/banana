@@ -17,19 +17,18 @@ class AgentDashboardController extends AbstractController
     public function index()
     {
         $username = $this->getUser()->getUsername();
-
         $user = $this->getDoctrine()->getRepository(User::class)
             ->findBy(['username' => $username]);
 
-        $userId = $this->getUser()->getId();
 
+        $userId = $this->getUser()->getId();
         $ticket = $this->getDoctrine()
             ->getRepository(Ticket::class)
             ->findBy(['agent_id' => $userId]);
 
         if (!$ticket) {
             throw $this->createNotFoundException(
-                'No product found for id '.$userId
+                'No tickets found for id'.$userId
             );
         }
         $ticketArray = [];
@@ -37,6 +36,7 @@ class AgentDashboardController extends AbstractController
             array_push($ticketArray, $tickett);
         }
 
+        $ticketStatus = $ticket->getStatus();
 
         $currentUserId = $this->getUser()->getId();
 
@@ -46,7 +46,7 @@ class AgentDashboardController extends AbstractController
             ->findBy(['agent_id' => $currentUserId]);
 
         if (!$user) {
-            return $this->render('agent_dashboard/index.html.twig', ['user' => 'Who tf are YOU?']);
+            return $this->render('agent_dashboard/index.html.twig', ['user' => 'And who tf are YOU?']);
         }
         $ticketsArr = [];
         foreach ($tickets AS $ticket){
