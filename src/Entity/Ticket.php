@@ -66,6 +66,11 @@ class Ticket
 //        $this->setStatus($status);
     }
 
+    public function getTicket()
+    {
+        
+    }
+
     public function getId(): ?int
     {
         return $this->id;
