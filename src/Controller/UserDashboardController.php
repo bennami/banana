@@ -33,7 +33,7 @@ class UserDashboardController extends AbstractController
         $entityManager->flush();
 
         //return new Response('Saved new product with id '.$ticket->getStatus());
-        //return $this->render('user_dashboard/index.html.twig', ['product' => $ticket]);
+        return $this->render('user_dashboard/index.html.twig', ['product' => $ticket]);
     }
 //    public function readAllTicket():Response
 //    {
@@ -112,5 +112,9 @@ class UserDashboardController extends AbstractController
 //
 //        return $this->render('user_dashboard/index.html.twig', ['product' => $tickets]);
 //    }
+
+
+        //return $this->render('user_dashboard/index.html.twig', ['product' => $product->getUsername()]);
+    
 
 }
