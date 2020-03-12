@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SingleTicketController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+    <table class="table-bordered">
+        <tbody>
+        <tr>
+            <th><h3>Manager Single Ticket overview</h3></th>
+
+        </tr>
+        <th><h4>Subject</h4></th>
+        <th><h4>Handled By</h4></th>
+        <th><h4>Status</h4></th>
+        <th><h4>Date</h4></th>
+
+
+
+        <tr>
+            <td>{{ ticket.subject }}</td>
+            <td>handleBy placeholder</td>
+            <td>{{ ticket.status }}</td>
+            <td>date placeholder</td>
+
+        </tr>
+        <tr>
+            <th><h4>Content</h4></th>
+        </tr>
+        <tr>
+
+        </tr>
+
+        {% for comment in allComments %}
+        <tr>
+            <td>{{ comment.content }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

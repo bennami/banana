@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketController extends AbstractController
 {
     /**
-     * @Route("/ticket", name="ticket")
+     * @Route("/ticket", name="ticket{id}")
      * @param Request $request
      * @return Response
      * @throws \Exception
@@ -53,7 +53,7 @@ class TicketController extends AbstractController
 //            'TicketType' => $form->createView(),
 //        ]);
         return $this->render('ticket/index.html.twig', [
-            'TicketType' => $form->createView(),
+            'EditTicket' => $form->createView(),
         ]);
     }
 
