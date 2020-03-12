@@ -12,6 +12,19 @@ class UserDashboardController extends AbstractController
     /**
      * @Route("/user/dashboard", name="user_dashboard")
      */
+    public function index()
+    {
+
+        $allTickets = $this->getDoctrine()->getRepository(Ticket::class)
+            ->find($this->getUser()->getId());
+
+        if (!$allTickets) {
+            return $this->render('user_dashboard/index.html.twig'
+            );
+        }
+        return $this->render('user_dashboard/index.html.twig',
+        ['tickets' => $allTickets]);
+    }
 
     public function createProduct()
     {

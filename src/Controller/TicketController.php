@@ -53,7 +53,7 @@ class TicketController extends AbstractController
 //            'TicketType' => $form->createView(),
 //        ]);
         return $this->render('ticket/index.html.twig', [
-            'EditTicket' => $form->createView(),
+            'TicketType' => $form->createView(),
         ]);
     }
 
