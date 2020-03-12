@@ -36,7 +36,7 @@ class AgentDashboardController extends AbstractController
             array_push($ticketArray, $tickett);
         }
 
-        $ticketStatus = $ticket->getStatus();
+        //$ticketStatus = $ticket->getStatus();
 
         $currentUserId = $this->getUser()->getId();
 
@@ -54,7 +54,7 @@ class AgentDashboardController extends AbstractController
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username]);
+        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username, 'id' =>$ticketsArr[0]->getId()]);
     }
 
     }

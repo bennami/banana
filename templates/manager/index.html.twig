@@ -31,7 +31,7 @@
             <tbody>
             {% for i in 0..numberOfTimes-1 %}
                 <tr>
-                    <td> {{ allTickets[i].subject }}</td>
+                    <td><a href="/index.php/ticket/{{ allTickets[i].id }}">{{ allTickets[i].subject }}</a></td>
                     <td> {{ allTickets[i].status }}</td>
                     <td> {{ agentName[i] }}</td>
 

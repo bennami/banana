@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TicketController extends AbstractController
 {
     /**
-     * @Route("/ticket", name="ticket")
+     * @Route("/ticket", name="ticket{id}")
      * @param Request $request
      * @return Response
      * @throws \Exception
