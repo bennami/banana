@@ -30,12 +30,15 @@
             </thead>
             <tbody>
             {% for i in 0..numberOfTimes-1 %}
+                {{ form_start(EditTicket) }}
                 <tr>
                     <td> {{ allTickets[i].subject }}</td>
+                    <td>   {{ form_row(EditTicket.status) }}</td>
                     <td> {{ allTickets[i].status }}</td>
                     <td> {{ agentName[i] }}</td>
 
                 </tr>
+                {{ form_end(EditTicket) }}
             {% endfor %}
             </tbody>
         </table>

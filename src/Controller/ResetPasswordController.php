@@ -25,6 +25,8 @@ class ResetPasswordController extends AbstractController
     public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         // similar to registration controller
+
+        //instantiate user class
         $user = new User();
 
 
@@ -35,6 +37,8 @@ class ResetPasswordController extends AbstractController
         /* $reset = $form->getData();
            $reset['email'];*/
 
+
+        // create form and handle requests
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
 
@@ -43,6 +47,7 @@ class ResetPasswordController extends AbstractController
             // If email in database, get it and update the password
             $userSelected = $this->getDoctrine()->getRepository(User::class)->findBy(['email' => $userEmail]);
             if ($userSelected) {
+                //userSelected is an array, so we use [0]. there's never gonna be more that one user
                 $user = $userSelected[0];
 
                 // encode the plain password
@@ -53,16 +58,19 @@ class ResetPasswordController extends AbstractController
                     )
                 );
 
+                //query, insert into  db
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
 
-                // do anything else you need here, like send an email
 
+                //if you  successfully  change page, redirect to login
                 return $this->redirectToRoute('app_login');
             }
+            //otherwise, throw error, and tell them to try again
             else {
-                throw(new Exception('error Message'));
+
+                echo '<script>alert("Your password or email is incorrect, please try again. If you do not have an account, register first")</script>';
             }
 
         }
