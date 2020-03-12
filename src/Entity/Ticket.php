@@ -59,6 +59,11 @@ class Ticket
         $this->comment_id = new ArrayCollection();
     }
 
+    public function getTicket()
+    {
+        
+    }
+
     public function getId(): ?int
     {
         return $this->id;
