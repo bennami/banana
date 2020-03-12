@@ -23,6 +23,7 @@ class RegistrationController extends AbstractController
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @param GuardAuthenticatorHandler $guardHandler
      * @param Authenticator $authenticator
+     * @param array $options
      * @return Response
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, Authenticator $authenticator): Response
@@ -31,7 +32,13 @@ class RegistrationController extends AbstractController
 
 
         $user = new User();
-        $user_roles = $this->getUser()->getRoles();
+        if (!$this->getUser()){
+            $user_roles = ["ROLE_CUSTOMER"];
+        } else {
+            $user_roles = $this->getUser()->getRoles();
+
+        }
+
         $form = $this->createForm(RegistrationFormType::class, $user, array('role' => $user_roles));
         $form->handleRequest($request);
 
@@ -47,10 +54,18 @@ class RegistrationController extends AbstractController
 
 
             //getting roles to work babyyy
-            $role = $form->get('roles');
-            $user->setRoles([$role->getData()]);
-            $user->getRoles();
-            
+
+            if ($this->getUser()){
+                if ($this->getUser()->getRoles() == ["ROLE_ADMIN"]){
+                    $role = $form->get('roles');
+                    $user->setRoles([$role->getData()]);
+                    $user->getRoles();
+                }
+            } else {
+                $user->setRoles(["ROLE_CUSTOMER"]);
+                $user->getRoles();
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
