@@ -16,11 +16,12 @@ class UserDashboardController extends AbstractController
     {
 
         $allTickets = $this->getDoctrine()->getRepository(Ticket::class)
-            ->find($this->getUser()->getId());
+            ->findBy(['user_id' => $this->getUser()->getId()]);
 
         if (!$allTickets) {
-            return $this->render('user_dashboard/index.html.twig'
-            );
+            return $this->render('user_dashboard/index.html.twig',
+                ['tickets' => 'No ticket found']);
+
         }
         return $this->render('user_dashboard/index.html.twig',
         ['tickets' => $allTickets]);

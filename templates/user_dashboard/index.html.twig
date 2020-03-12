@@ -8,20 +8,19 @@
         .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
     </style>
 
+    <table>
+        <tr>
+            <th>All tickets</th>
+        </tr>
+        {% for ticket in tickets %}
+        <tr>
+            <td><a href="/index.php/ticket/{{ ticket.id }}">{{ticket.subject}}</a></td>
+            <td>{{ticket.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
-<div class="example-wrapper">
-{#    {% for ticket in product %}
-        <h1>{{ ticket }}</h1>
-    {% endfor %}#}
 
-    <div class="example-wrapper">
-{#        {% for ticket in product %}#}
-{#            <h1>{{ ticket }}</h1>#}
-{#        {% endfor %}#}
-
-
-    </div>
-</div>
     <div>
         <button><a href="{{ path('ticket{id}') }}">CREATE NEW TICKET</a></button>
     </div>
