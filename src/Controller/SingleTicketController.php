@@ -19,25 +19,32 @@ class SingleTicketController extends AbstractController
 
         $singleTicket = $this->getDoctrine()
             ->getRepository(Ticket::class)
-            ->findOneBy(['id'=> $id]);
+            ->findOneBy(['id' => $id]);
 
         $allComments = $this->getDoctrine()
             ->getRepository(Comment::class)
-            ->findBy(['ticket_id'=> $singleTicket->getId()]);
+            ->findBy(['ticket_id' => $singleTicket->getId()]);
 
         $allTickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
         $agentsAssignedID = [];
-        foreach ($allTickets as $ticket){
+        foreach ($allTickets as $ticket) {
             array_push($agentsAssignedID, $ticket->getAgentId());
         }
-        $agentsAssigned = [];
-        foreach ($agentsAssignedID as $agentId){
-            $agent = $this->getDoctrine()
-                ->getRepository(User::class)
+//        if (count($agentsAssignedID) == 0) {
+//            $agent = "No agent assigned";
+//        } else {
+            $agentsAssigned = [];
+            foreach ($agentsAssignedID as $agentId) {
+                $agent = $this->getDoctrine()
+                    ->getRepository(User::class)
 
-                //find agent id that matches  ticket id and push  it to array
-                ->findOneBy(['id' => $agentId]);
-            array_push($agentsAssigned, $agent->getUsername());
+                    //find agent id that matches  ticket id and push  it to array
+                    ->findOneBy(['id' => $agentId]);
+                if (!$agent){
+                    $agent = "No agent assigned";
+                } else {
+                    array_push($agentsAssigned, $agent->getUsername());
+                }
         }
 
         return $this->render('single_ticket/index.html.twig', [
