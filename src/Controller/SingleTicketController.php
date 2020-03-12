@@ -51,7 +51,7 @@ class SingleTicketController extends AbstractController
             'controller_name' => 'SingleTicketController',
             'ticket' => $singleTicket,
             'allComments' => $allComments,
-            'username' => $agent
+            'agentName' => $agentsAssigned,
 
         ]);
     }
