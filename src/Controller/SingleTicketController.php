@@ -31,6 +31,7 @@ class SingleTicketController extends AbstractController
             'controller_name' => 'SingleTicketController',
             'ticket' => $singleTicket,
             'allComments' => $allComments
+
         ]);
     }
 }
