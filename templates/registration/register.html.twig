@@ -13,7 +13,7 @@
 
     {% if is_granted('ROLE_ADMIN') %}
 
-    {{ form_row(registrationForm.roles) }}
+    {{ form_row(RegistrationForm.roles) }}
     {% endif %}
 
     {{ form_row(RegistrationForm.agreeTerms) }}
