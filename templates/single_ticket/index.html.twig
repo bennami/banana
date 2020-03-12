@@ -17,16 +17,22 @@
         <th><h4>Subject</h4></th>
         <th><h4>Handled By</h4></th>
         <th><h4>Status</h4></th>
+        <th><h4>Date</h4></th>
+
 
 
         <tr>
             <td>{{ ticket.subject }}</td>
+            <td>handleBy placeholder</td>
+            <td>{{ ticket.status }}</td>
+            <td>date placeholder</td>
+
         </tr>
         <tr>
             <th><h4>Content</h4></th>
         </tr>
         <tr>
-            <td>{{ ticket.status }}</td>
+
         </tr>
 
         {% for comment in allComments %}
