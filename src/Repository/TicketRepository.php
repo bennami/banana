@@ -22,8 +22,7 @@ class TicketRepository extends ServiceEntityRepository
     // /**
     //  * @return Ticket[] Returns an array of Ticket objects
     //  */
-    /*
-    public function findByExampleField($value)
+ /*   public function findByExampleField($value)
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')
