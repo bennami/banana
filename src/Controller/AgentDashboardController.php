@@ -14,7 +14,8 @@ class AgentDashboardController extends AbstractController
     /**
      * @Route("/agent/dashboard", name="agent_dashboard")
      */
-    public function index(){
+    public function index()
+    {
 
         $username = $this->getUser()->getUsername();
         $user = $this->getDoctrine()->getRepository(User::class)
@@ -27,12 +28,13 @@ class AgentDashboardController extends AbstractController
             ->findBy(['agent_id' => $userId]);
 
         if (!$ticket) {
-            throw $this->createNotFoundException(
-                'No tickets found for id'.$userId
-            );
+            return $this->render('agent_dashboard/index.html.twig',
+                ['subject' => 'this is not available',
+                    'username' => $username,
+                    'ticket' => $this->getUser()]);
         }
         $ticketArray = [];
-        foreach ($ticket AS $tickett){
+        foreach ($ticket AS $tickett) {
             array_push($ticketArray, $tickett);
         }
 
@@ -49,14 +51,17 @@ class AgentDashboardController extends AbstractController
             return $this->render('agent_dashboard/index.html.twig', ['user' => 'And who tf are YOU?']);
         }
         $ticketsArr = [];
-        foreach ($tickets AS $ticket){
+        foreach ($tickets AS $ticket) {
             array_push($ticketsArr, $ticket);
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username]);
-     }
-
-
+        return $this->render('agent_dashboard/index.html.twig', [
+            'subject' => $ticketsArr[0]->getSubject(),
+            'username' => $username,
+            'id' => $this->getUser()->getId()]);
     }
+
+
+}
 

@@ -6,6 +6,7 @@ use App\Entity\Ticket;
 use App\Entity\User;
 use App\Form\EditTicketType;
 use App\Form\RegistrationFormType;
+use App\Form\ResetTicketsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,6 +25,7 @@ class ManagerController extends AbstractController
         //$ticket = new Ticket();
         $form = $this->createForm(EditTicketType::class );
         $form->handleRequest($request);
+
 
        /*  if ($this->getUser()){
             if ($this->getUser()->getRoles() == ["ROLE_ADMIN"]){
@@ -58,7 +60,11 @@ class ManagerController extends AbstractController
 
                 //find agent id that matches  ticket id and push  it to array
                 ->findOneBy(['id' => $agentId]);
-            array_push($agentsAssigned, $agent->getUsername());
+            if (!$agent){
+                $agent = "No agent assigned";
+            } else {
+                array_push($agentsAssigned, $agent->getUsername());
+            }
         }
 
         return $this->render('manager/index.html.twig', [
