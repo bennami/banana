@@ -55,7 +55,7 @@ class RegistrationController extends AbstractController
             //getting roles to work babyyy
 
             if ($this->getUser()){
-                if ($this->getUser()->getRoles() == ["ROLE_ADMIN"]){
+                if ($this->isGranted('ROLE_ADMIN')){
                     $role = $form->get('roles');
                     $user->setRoles([$role->getData()]);
                     $user->getRoles();

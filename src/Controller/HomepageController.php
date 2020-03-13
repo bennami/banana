@@ -13,9 +13,19 @@ class HomepageController extends AbstractController
     public function index()
     {
 
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        $isAgent = $this->isGranted('ROLE_FIRST_LINE');
+        $isAgent2 = $this->isGranted('ROLE_SECOND_LINE');
+        $isCustomer = $this->isGranted('ROLE_CUSTOMER');
 
-        return $this->render('homepage/index.html.twig', [
-            'controller_name' => 'HomepageController',
-        ]);
+
+
+        if ($isAdmin) {
+            return $this->redirectToRoute('managerDashboard');
+        } elseif ($isAgent || $isAgent2) {
+            return $this->redirectToRoute('agentDashboard');
+        } else {
+            return $this->redirectToRoute('userDashboard');
+        }
     }
 }

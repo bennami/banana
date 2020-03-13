@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class AgentDashboardController extends AbstractController
 {
     /**
-     * @Route("/agent/dashboard", name="agent_dashboard")
+     * @Route("/agent/dashboard", name="agentDashboard")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

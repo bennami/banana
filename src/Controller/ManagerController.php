@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ManagerController extends AbstractController
 {
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/dashboard", name="managerDashboard")
      * @param Request $request
      * @return Response
      */

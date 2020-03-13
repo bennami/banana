@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserDashboardController extends AbstractController
 {
     /**
-     * @Route("/user/dashboard", name="user_dashboard")
+     * @Route("/user/dashboard", name="userDashboard")
      */
     public function index()
     {
