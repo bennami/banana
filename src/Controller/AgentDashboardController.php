@@ -54,7 +54,7 @@ class AgentDashboardController extends AbstractController
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username]);
+        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username, 'id' => $this->getUser()->getId()]);
      }
 
 

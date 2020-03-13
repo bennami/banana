@@ -10,7 +10,7 @@
 
 
 
-    <h1>Hello {{ username }}</h1>
+    <h1>Hello {{ username }}, get crackin'!</h1>
 
 
 
@@ -23,7 +23,7 @@
         </tr>
 
         <tr>
-            <td>{{ subject }}<a href="//{{ path('ticket', {'id':id}) }}" </a>llll</td>
+            <td>{{ subject }}<a href="/ticket/ {{ id }}"></a></td>
             <td>Status:</td>
         </tr>
         </tbody>
