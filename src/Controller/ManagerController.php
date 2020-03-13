@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ticket;
 use App\Entity\User;
 use App\Form\EditTicketType;
+use App\Form\MakeNewAgentType;
 use App\Form\RegistrationFormType;
 use App\Form\ResetTicketsType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -69,18 +70,26 @@ class ManagerController extends AbstractController
                 //find agent id that matches  ticket id and push  it to array
                 ->findOneBy(['id' => $agentId]);
             if (!$agent){
-                array_push($agentsAssigned, "No agent assigned");
+                array_push($agentsAssigned, "no agent assigned");
+
             } else {
                 array_push($agentsAssigned, $agent->getUsername());
             }
         }
 
-        return $this->render('manager/index.html.twig', [
+        $newAgentForm = $this->createForm(MakeNewAgentType::class );
+        $newAgentForm->handleRequest($request);
+        if ($newAgentForm->isSubmitted() && $newAgentForm->isValid()) {
+            return $this->redirectToRoute('app_register');
+        }
+
+            return $this->render('manager/index.html.twig', [
             'numberOfTimes' => count($allTickets),
             'allTickets' => $allTickets,
             'username' => $this->getUser()->getUsername(),
             'agentName' => $agentsAssigned,
             'EditTicket' => $form->createView(),
+                'newAgent' => $newAgentForm->createView()
         ]);
     }
 

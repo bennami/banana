@@ -44,6 +44,9 @@
                 {{ form_end(EditTicket) }}
 
             {% endfor %}
+            {{ form_start(newAgent) }}
+            {{ form_widget(newAgent.save, { 'label': 'make new agent' }) }}
+            {{ form_end(newAgent) }}
 
 
             </tbody>
