@@ -25,7 +25,15 @@ class ManagerController extends AbstractController
         //$ticket = new Ticket();
         $form = $this->createForm(EditTicketType::class );
         $form->handleRequest($request);
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $allTicket = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
+            foreach ($allTicket as $ticket){
+                $ticket->setStatus($form->get('status')->getData());
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($ticket);
+                $entityManager->flush();
+            }
+        }
 
        /*  if ($this->getUser()){
             if ($this->getUser()->getRoles() == ["ROLE_ADMIN"]){

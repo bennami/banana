@@ -18,15 +18,33 @@
     <table class="table-bordered">
         <tbody>
         <tr>
-            <th><h4>Tickets assigned to you:</h4></th>
             <th><h4>Open tickets:</h4></th>
-        </tr>
 
+        </tr>
+        {% for ticket in openTickets %}
+            <tr>
+                <td><a href="/index.php/ticket/{{ ticket.id }}">{{ ticket.subject }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+</br>
+    </br></br></br>
+    <table class="table-bordered">
+        <tbody>
         <tr>
 
-            <td>Status:</td>
+            <th><h4>Tickets assigned to you:</h4></th>
         </tr>
+        {% for ticket in ticketsAssignedToMe %}
+            <tr>
+                <td>{{ ticket.subject }}</td>
+            </tr>
+        {% endfor %}
+
         </tbody>
     </table>
+
+
 </div>
 {% endblock %}

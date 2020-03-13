@@ -17,6 +17,11 @@
         }
     </style>
 
+    {{ form_start(assignForm) }}
+    {{ form_widget(assignForm.save, { 'label': 'Assign to me' }) }}
+
+    {{ form_end(assignForm) }}
+
     <table class="table-bordered">
         <tbody>
         <tr>
@@ -51,4 +56,9 @@
         {% endfor %}
         </tbody>
     </table>
+
+    {{ form_start(form) }}
+    {{ form_widget(form.save, { 'label': 'Click me' }) }}
+
+    {{ form_end(form) }}
 {% endblock %}

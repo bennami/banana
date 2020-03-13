@@ -6,15 +6,19 @@ use App\Entity\Ticket;
 
 use App\Entity\User;
 
+use App\Form\AssignToMeType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class AgentDashboardController extends AbstractController
 {
     /**
      * @Route("/agent/dashboard", name="agent_dashboard")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $username = $this->getUser()->getUsername();
@@ -56,10 +60,23 @@ class AgentDashboardController extends AbstractController
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', [
+        $openTickets = $this->getDoctrine()
+            ->getRepository(Ticket::class)
+            ->findBy(['status' => 'Open']);
+        $form = $this->createForm(AssignToMeType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+
+
+            return $this->render('agent_dashboard/index.html.twig', [
             'subject' => $ticketsArr[0]->getSubject(),
+            'ticketsAssignedToMe' => $tickets,
             'username' => $username,
-            'id' => $this->getUser()->getId()]);
+            'id' => $this->getUser()->getId(),
+            'openTickets' => $openTickets]);
+
     }
 
 
