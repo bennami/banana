@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ManagerController extends AbstractController
 {
     /**
-     * @Route("/dashboard", name="managerDashboard")
+     * @Route("/manager/dashboard", name="managerDashboard")
      * @param Request $request
      * @return Response
      */
@@ -69,7 +69,7 @@ class ManagerController extends AbstractController
                 //find agent id that matches  ticket id and push  it to array
                 ->findOneBy(['id' => $agentId]);
             if (!$agent){
-                $agent = "No agent assigned";
+                array_push($agentsAssigned, "No agent assigned");
             } else {
                 array_push($agentsAssigned, $agent->getUsername());
             }
