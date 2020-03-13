@@ -23,7 +23,11 @@
 
         <tr>
             <td>{{ ticket.subject }}</td>
-            <td>{{ }}</td>
+
+                <td>{{ agentUsername }}</td>
+
+
+
             <td>{{ ticket.status }}</td>
             <td>date placeholder</td>
 
@@ -36,6 +40,7 @@
         </tr>
 
         {% for comment in allComments %}
+
         <tr>
             <td>{{ comment.content }}</td>
         </tr>
