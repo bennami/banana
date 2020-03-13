@@ -27,9 +27,10 @@ class AgentDashboardController extends AbstractController
             ->findBy(['agent_id' => $userId]);
 
         if (!$ticket) {
-            throw $this->createNotFoundException(
-                'No tickets found for id'.$userId
-            );
+            return $this->render('agent_dashboard/index.html.twig',
+                ['subject' =>'this is not available',
+                    'username' => $username,
+                    'ticket' => $this->getUser()]);
         }
         $ticketArray = [];
         foreach ($ticket AS $tickett){
@@ -54,7 +55,8 @@ class AgentDashboardController extends AbstractController
         }
 
 
-        return $this->render('agent_dashboard/index.html.twig', ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username]);
+        return $this->render('agent_dashboard/index.html.twig',
+            ['subject' => $ticketsArr[0]->getSubject(), 'username' => $username]);
      }
 
 
