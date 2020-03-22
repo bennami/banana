@@ -23,6 +23,13 @@ class UserDashboardController extends AbstractController
                 ['tickets' => 'No ticket found']);
 
         }
+
+
+        //fixing part when tickets doesnt have agent yet
+
+        $allTickets = $this->getDoctrine()->getRepository(Ticket::class)
+            ->findBy(['user_id' => $this->getUser()->getId()]);
+
         return $this->render('user_dashboard/index.html.twig',
         ['tickets' => $allTickets]);
     }

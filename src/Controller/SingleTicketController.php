@@ -47,11 +47,21 @@ class SingleTicketController extends AbstractController
             ->getRepository(Comment::class)
             ->findBy(['ticket_id' => $singleTicket->getId()]);
 
+
         //getting username from User entity to show the USERNAME itself and not an ID
+
         $allTickets = $this->getDoctrine()->getRepository(Ticket::class)->findAll();
         $currentTicket = $this->getDoctrine()->getRepository(Ticket::class)->findOneBy(['id'=>$id]);
         $assignedAgent = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id'=>$currentTicket->getAgentId()]);
-        $assignedAgent->getUsername();
+
+        //if there is no agent assigned yet display 'none yet'
+        if(!$assignedAgent){
+            $assignedAgent =  'none yet';
+        }else{
+           $assignedAgent =  $assignedAgent->getUsername();
+        }
+
+
 
 
         $assignForm = $this->createForm(AssignToMeType::class);
@@ -71,7 +81,7 @@ class SingleTicketController extends AbstractController
             'numberOfTimes' => count($allTickets),
             'ticket' => $singleTicket,
             'allComments' => $allComments,
-            'agentUsername' =>$assignedAgent->getUsername(),
+            'agentUsername' =>$assignedAgent,
             'form' => $form->createView(),
             'assignForm' => $assignForm->createView()
 
